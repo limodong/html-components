@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单组件</title>
+</head>
+
+<body>
+    <form action="">
+        <fieldset>
+            <legend>Fruit juice size</legend>
+            <p>
+                <input type="radio" name="size" id="size_1" value="small" />
+                <label for="size_1">Small</label>
+            </p>
+            <p>
+                <input type="radio" name="size" id="size_2" value="medium" />
+                <label for="size_2">Medium</label>
+            </p>
+            <p>
+                <input type="radio" name="size" id="size_3" value="large" />
+                <label for="size_3">Large</label>
+            </p>
+            <p>
+                <label for="password">密码：</label>
+                <input type="password" minlength="6" max="12"
+                    pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#,.]).{6,12}" autocomplete="new-password"
+                    placeholder="必须包含小写、大写字母、数字、特殊符号" required>
+            </p>
+            <p>
+                <label for="color">颜色：</label>
+                <input type="color" value="#ff0000">
+            </p>
+        </fieldset>
+    </form>
+
+</body>
+
+</html>

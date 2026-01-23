@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .tab {
+            display: flex;
+            position: relative;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tab li {
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .tab li.tab-bar {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            background-color: gold;
+            transform: translateX(0);
+            transition-duration: .2s;
+        }
+
+        .tab-content {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tabs-container">
+        <ul class="tab">
+            <li data-index="0">one</li>
+            <li data-index="1">two</li>
+            <li data-index="2">three</li>
+            <li class="tab-bar"></li>
+        </ul>
+        <div class="tab-content">
+            <img class="image" src="./img/1.jpg" width="500" height="300">
+        </div>
+    </div>
+
+    <script>
+        const tab = document.querySelector(".tab"),
+            bar = document.querySelector(".tab-bar"),
+            image = document.querySelector(".image");
+        let index = 0, distance = 60;
+        tab.addEventListener("click", function (e) {
+            if (e.target.tagName === "LI") {
+                index = parseInt(e.target.dataset.index);
+                if (!isNaN(index)) {
+                    bar.style.transform = `translateX(${index * distance}px)`;
+                }
+                image.src = image.src.replace(/\d(?=\.jpg$)/, index + 1);
+            }
+        })
+    </script>
+</body>
+
+</html>

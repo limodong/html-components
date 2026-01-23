@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视图窗口</title>
+    <style>
+        .view-layer-container {
+            width: 500px;
+            height: 400px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ccc;
+        }
+
+        .view-layer-header {
+            width: 100%;
+            height: 40px;
+            background-color: goldenrod;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="view-layer-container">
+        <div class="view-layer-header"></div>
+    </div>
+
+    <script>
+        const viewLayer = document.querySelector(".view-layer-container"),
+            header = document.querySelector(".view-layer-header");
+        header.onmousedown = function () {
+            const style = getComputedStyle(viewLayer);
+            let left = parseFloat(style.left.slice(0, -2));
+            let top = parseFloat(style.top.slice(0, -2));
+            header.onmousemove = function (e) {
+                left += e.movementX;
+                top += e.movementY;
+                viewLayer.style.left = left + "px";
+                viewLayer.style.top = top + "px";
+            }
+            // 鼠标按键抬起和鼠标移出都删除鼠标移动事件
+            header.onmouseleave = header.onmouseup = function () {
+                header.onmousemove = null;
+            }
+        }
+    </script>
+</body>
+
+</html>

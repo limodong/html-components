@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>菜单</title>
+
+    <style>
+        .menu-container {
+            width: 200px;
+            border: 1px solid #000;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .menu-title {
+            display: inline-block;
+            width: 100%;
+            background-color: gold;
+        }
+
+        .children-menu-title {
+            display: block;
+            transform-origin: top;
+            transform: scaleY(1);
+            transition: all .3s;
+        }
+
+        .children-menu-title li:hover {
+            background-color: goldenrod;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-container">
+        <ul class="menu"></ul>
+    </div>
+
+    <script>
+        const menus = [
+            {
+                title: "菜单一",
+                children: ["子菜单1", "子菜单1", "子菜单1", "子菜单1"]
+            },
+            {
+                title: "菜单二",
+                children: ["子菜单1", "子菜单1", "子菜单1", "子菜单1"]
+            },
+            {
+                title: "菜单三",
+                children: ["子菜单1", "子菜单1", "子菜单1", "子菜单1"]
+            },
+            {
+                title: "菜单四",
+                children: ["子菜单1", "子菜单1", "子菜单1", "子菜单1"]
+            },
+        ];
+
+        const menu = document.querySelector(".menu");
+
+        for (const item of menus) {
+            const li = document.createElement("li");
+            li.innerHTML = `<span class="menu-title">${item.title}</span>`;
+            const childUl = document.createElement("ul");
+            childUl.className = "children-menu-title";
+            let lis = ``;
+            item.children.forEach(child => {
+                lis += `<li>${child}</li>`
+            })
+            childUl.innerHTML = lis;
+            li.append(childUl);
+            menu.appendChild(li);
+        }
+        menu.addEventListener("click", function (e) {
+            if (e.target && e.target.className === "menu-title") {
+                const childrenMenu = e.target.nextElementSibling;
+                const style = getComputedStyle(childrenMenu);
+                if (style.display === "none") {
+                    childrenMenu.style.display = "block";
+                } else {
+                    childrenMenu.style.display = "none";
+                }
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>

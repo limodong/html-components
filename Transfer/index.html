@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>传输框组件</title>
+
+    <style>
+        .transfer-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: green !important;
+        }
+
+        .transfer-container::before {
+            content: "";
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+        }
+
+        #transfer-left,
+        #transfer-right {
+            width: 300px;
+            height: 400px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .btns {
+            padding: 0 20px;
+        }
+
+        .btns button {
+            width: 50px;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="transfer-container" style="background-color: red;">
+        <select id="transfer-left" multiple>
+            <option value="1">A</option>
+            <option value="11">B</option>
+            <option value="111">C</option>
+            <option value="1111">D</option>
+        </select>
+        <div class="btns">
+            <button id="to-left-all">|&lt;</button>
+            <br />
+            <button id="to-left">&lt;</button>
+            <br />
+            <button id="to-right">&gt;</button>
+            <br />
+            <button id="to-right-all">&gt;|</button>
+        </div>
+        <select id="transfer-right" multiple>
+            <option value="2">E</option>
+            <option value="22">F</option>
+            <option value="222">G</option>
+            <option value="2222">H</option>
+        </select>
+    </div>
+
+    <script>
+        var selectLeft = document.getElementById("transfer-left"),
+            selectRight = document.getElementById("transfer-right"),
+            toLeftBtn = document.getElementById("to-left"),
+            toLeftAllBtn = document.getElementById("to-left-all"),
+            toRightBtn = document.getElementById("to-right"),
+            toRightAllBtn = document.getElementById("to-right-all");
+        function getOptionAndTransfer(fromEl, toEl, isAll = false) {
+            const fragment = document.createDocumentFragment(); // 避免频繁添加元素消耗性能，使用文档片段
+            if (isAll) {
+                Array.from(fromEl.children).forEach(item => fragment.appendChild(item));
+            } else {
+                const selectedOptions = Array.from(fromEl.children).filter(item => item.selected);
+                selectedOptions.forEach(option => {
+                    option.selected = false;
+                    fragment.appendChild(option);
+                });
+            }
+            toEl.appendChild(fragment);
+        }
+        toLeftBtn.onclick = function () {
+            getOptionAndTransfer(selectRight, selectLeft);
+        }
+        toLeftAllBtn.onclick = function () {
+            getOptionAndTransfer(selectRight, selectLeft, true);
+        }
+        toRightBtn.onclick = function () {
+            getOptionAndTransfer(selectLeft, selectRight);
+        }
+        toRightAllBtn.onclick = function () {
+            getOptionAndTransfer(selectLeft, selectRight, true);
+        }
+
+        var container = document.querySelector(".transfer-container"); // 获取的是行内样式的值
+        var computedStyle = window.getComputedStyle(container); // 获取的是最终页面计算之后样式的值
+        var before = window.getComputedStyle(container, "before"); // 获取伪元素
+        console.log(before.backgroundColor, before.content);
+        console.log(container.style.backgroundColor, computedStyle.backgroundColor);
+    </script>
+</body>
+
+</html>

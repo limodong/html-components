@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态列表</title>
+</head>
+
+<body>
+    <section>
+        <div class="add-box">
+            <input type="text" class="todo-text">
+            <button type="button">添加</button>
+        </div>
+        <ul class="dynamic-list-container">
+        </ul>
+    </section>
+
+    <script>
+        const btn = document.querySelector("button"),
+            dynamicList = document.querySelector(".dynamic-list-container"),
+            todoText = document.querySelector(".todo-text");
+        btn.addEventListener("click", function () {
+            if (todoText.value.length === 0) {
+                return;
+            }
+            const li = document.createElement("li");
+            li.innerText = todoText.value;
+            const delBtn = document.createElement("button");
+            delBtn.innerHTML = "删除";
+            li.appendChild(delBtn);
+            dynamicList.appendChild(li);
+            todoText.value = "";
+        })
+        dynamicList.addEventListener("click", function (e) {
+            if ("BUTTON" === e.target.tagName) {
+                e.currentTarget.remove(e.target.parent)
+            }
+        })
+    </script>
+</body>
+
+</html>

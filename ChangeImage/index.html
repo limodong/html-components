@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>change image</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="btns"></div>
+        <img class="image" src="img/1.jpg" width="500" height="300">
+    </div>
+
+    <script>
+        const imgUrl = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"];
+        const btns = document.querySelector(".btns"),
+            image = document.querySelector(".image");
+        const fragmet = document.createDocumentFragment();
+        for (let i = 0; i < imgUrl.length; i++) {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.innerHTML = `图片${i + 1}`
+            btn.setAttribute("data-url", imgUrl[i])
+            fragmet.appendChild(btn);
+        }
+        btns.appendChild(fragmet);
+
+        btns.addEventListener("click", function (e) {
+            if (e.target && e.target.dataset.url) {
+                image.src = image.src.replace(/\w\.jpg$/, e.target.dataset.url);
+            }
+
+        })
+    </script>
+</body>
+
+</html>
