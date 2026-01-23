@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var F = function () { }; // 相当于var F = new Function对象，
+        Object.prototype.a = function () { }; // 往Object的原型链上加了a属性，所有对象原型上都有属性a
+        Function.prototype.b = function () { }; // 往Function的原型链上加了b属性，所有函数的原型链上都有b属性
+        var f = new F(); // 创建了F对象，它是一个对象，拥有了Object原型链上的属性
+        console.log(f.a, f.b, F.a, F.b);//输出 F(){} - undefined - F(){} - F(){}
+    </script>
+</body>
+
+</html>
