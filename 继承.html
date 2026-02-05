@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function User(firstName, lastName, age) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.age = age;
+        }
+        User.prototype.helloWorld = function () {
+            console.log(`恭喜您！${firstName}${lastName}(先生/女士)您出生了`);
+        }
+
+        function VipUser(fName, lName, age, money) {
+            Object.create(User);
+            User.call(this, fName, lName, age);
+            this.money = money;
+            return function (fName, lName, age) {
+
+            }
+
+        }
+        VipUser.prototype.upgrade = function () {
+            this.money -= 100;
+            console.log(`升级`);
+        }
+        var vip = new VipUser("Lance", "Lee", 0, 1000);
+    </script>
+</body>
+
+</html>
