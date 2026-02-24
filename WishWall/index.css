@@ -1,0 +1,47 @@
+body,.paper{
+    margin: 0;
+}
+.paper{
+    box-sizing: border-box;
+    width: 170px;
+    height: 170px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: rgb(192, 114, 114);
+    position: fixed;
+    left: 100px;
+    top: 100px;
+    font-size: 16px;
+    color: #fff;
+    cursor: move;
+    user-select: none;
+}
+.paper span{
+    position: absolute;
+    right: 4px;
+    top: 2px;
+    cursor: pointer;
+}
+.paper span:hover{
+    color: red;
+}
+
+.inp-container{
+    width: 240px;
+    height: 32px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    z-index: 1000;
+}
+.inp-container form input{
+    border: none;
+    outline: none;
+    width: 100%;
+    line-height: 32px;
+    font-size: 14px;
+    text-indent: .5em;
+}
