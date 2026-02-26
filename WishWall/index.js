@@ -66,7 +66,6 @@ config.inpEl.onkeydown = function (e) {
  */
 window.onresize = function (e) {
     var paperEls = document.querySelectorAll(".paper");
-    console.log(paperEls);
     paperEls.forEach(e => {
         var leftRate = parseFloat(e.style.left.slice(0, -2)) / (config.vWidth - config.paperWidth); // 左边距的比例
         var topRate = parseFloat(e.style.top.slice(0, -2)) / (config.vHeight - config.paperHeight); // 上边距的比例
