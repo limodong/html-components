@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class="btn1">开始计时</button>
+    <button class="btn2">结束计时</button>
+    <h1></h1>
+    <script>
+        var h1 = document.querySelector("h1");
+        var btn1 = document.querySelector(".btn1");
+        var btn2 = document.querySelector(".btn2");
+        var timer = null;
+        var num = 0;
+        btn1.onclick = function () {
+            interval(function () {
+                num++;
+                h1.innerHTML = num;
+            }, 300)
+        }
+        btn2.onclick = function () {
+            clearTimeout(timer);
+        }
+
+        // 模拟setInterval功能
+        function interval(callback, duration) {
+            timer = setTimeout(function () {
+                callback();
+                interval(callback, duration);
+            }, duration);
+        } 
+    </script>
+</body>
+
+</html>

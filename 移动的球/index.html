@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .moveBox {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: red;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="moveBox"></div>
+    <script>
+        var config = {
+            vWidth: document.documentElement.clientWidth,
+            vHeight: document.documentElement.clientHeight,
+            moveBox: document.querySelector(".moveBox"),
+            moveBoxWidth: 200,
+            moveBoxHeight: 200,
+            x: 0,
+            y: 0,
+            xflag: false,
+            yflag: false,
+            speed: 20
+        }
+
+
+        console.log(config);
+
+        setInterval(function () {
+            var style = getComputedStyle(config.moveBox);
+            if (config.vHeight - config.moveBoxHeight < config.y) {
+                config.yflag = true;
+            }
+            if (config.vWidth - config.moveBoxWidth < config.x) {
+                config.xflag = true;
+            }
+            if (!config.yflag) {
+                config.y += config.speed;
+            } else {
+                config.y -= config.speed;
+                if (config.y <= 0) {
+                    config.yflag = false;
+                }
+            }
+            if (!config.xflag) {
+                config.x += config.speed;
+            } else {
+                config.x -= config.speed;
+                if (config.x <= 0) {
+                    config.xflag = false;
+                }
+            }
+
+            config.moveBox.style.left = config.x + "px";
+            config.moveBox.style.top = config.y + "px";
+        }, 16)
+    </script>
+</body>
+
+</html>

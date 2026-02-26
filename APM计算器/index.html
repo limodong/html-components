@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APM计算器</title>
+</head>
+
+<body>
+    <div><button class="reset">重置</button>剩余时间：<span class="time"></span></div>
+    <button class="handle">点击</button>
+    <div>点击次数：<span class="count"></span></div>
+</body>
+<script>
+    var timeEl = document.querySelector(".time");
+    var countEl = document.querySelector(".count");
+    var resetBtn = document.querySelector(".reset");
+    var handleBtn = document.querySelector(".handle");
+    var timer;
+    var flag = false;
+    var count = 0;
+    timeEl.innerHTML = 10;
+    countEl.innerHTML = 0;
+    resetBtn.onclick = function () {
+        timeEl.innerHTML = 10;
+        countEl.innerHTML = 0;
+        count = 0;
+        flag = false;
+        clearInterval(timer);
+        timer = null;
+    }
+    handleBtn.onclick = function () {
+        if (!timer) {
+            timer = setInterval(function () {
+                if (parseInt(timeEl.innerHTML) === 0) {
+                    clearInterval(timer);
+                    timer = null;
+                    return;
+                }
+                timeEl.innerHTML = parseInt(timeEl.innerHTML) - 1;
+            }, 1000)
+        }
+        if (flag && parseInt(timeEl.innerHTML) !== 0) {
+            count++;
+            countEl.innerHTML = count;
+        }
+        flag = true;
+    }
+</script>
+
+</html>
