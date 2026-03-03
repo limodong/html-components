@@ -1,27 +1,21 @@
-var cfg = {
-    data: [
-        { src: "./img/1.jpg" },
-        { src: "./img/2.jpg" },
-        { src: "./img/3.jpg" },
-        { src: "./img/4.jpg" },
-        { src: "./img/5.jpg" }
-    ],
-    swiper: document.querySelector(".swiper"),
-    indicator: document.querySelector(".indicator"),
-}
-
-function initSwiper() {
-    var indicatorFragment = document.createDocumentFragment();
-    var swiperFragment = document.createDocumentFragment();
-    for (let i = 0; i < cfg.data.length; i++) {
-        indicatorFragment.appendChild(document.createElement("li"));
-        var li = document.createElement("li");
-        li.style.background = `url(${cfg.data[i].src}) no-repate/100% 100%`
-        swiperFragment.appendChild(li);
-
+var config = {
+    data: ["img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg"],
+    bannerWidth: 520,
+    bannerHeight: 300,
+    doms: {
+        imgsEl: document.querySelector(".banner .imgs"),
+        arrowLeft: document.querySelector(".banner .arrow .left"),
+        arrowRight: document.querySelector(".banner .arrow .right"),
+        indicator: decodeURIComponent.querySelector(".banner .indicator")
     }
-    cfg.indicator.appendChild(indicatorFragment);
-    cfg.swiper.appendChild(swiperFragment);
 }
-
-initSwiper()
+function initBanner() {
+    var bannerFrament = document.createDocumentFragment();
+    config.data.forEach(url => {
+        var a = document.createElement("a");
+        a.innerHTML = `<img src="${url}">`;
+        bannerFrament.appendChild(a);
+    })
+    config.doms.imgsEl.style.width = config.bannerWidth * config.daata.length;
+}
+initBanner();
