@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象混合</title>
+</head>
+<body>
+    <script>
+        var obj1 = {
+            x: 1,
+            y: 2,
+            z: 3
+        };
+        var obj2 = {
+            x: "abs",
+            z: "123",
+            l: 111
+        }
+        /**
+         * 对象混合（自己封装）
+         * obj2覆盖obj1中相同的属性，如果obj1中没有对应obj2的属性那么就要将没有的属性复制到obj1中,并返回一个新对象
+         */
+        function mixin(obj1,obj2){
+            var newObj = {};
+            for(var prop in obj1){
+                newObj[prop] = obj1[prop];
+                if (obj2[prop]) {
+                     newObj[prop] = obj2[prop];
+                }
+            }
+            for(var prop in obj2){
+                if (!(prop in newObj)) {
+                    newObj[prop] = obj2[prop];
+                }
+            }
+            return newObj;
+        }
+        var obj3 = mixin(obj1,obj2);
+        console.log(obj3,obj3 === obj1);
+
+        // js内部也提供了对应的API可以进行对象属性混合
+        var obj4 = Object.assign(obj1,obj2); // 将obj2中的属性混合到obj1中并将obj1对象返回出去，直接对obj1进行修改
+        console.log(obj4,obj4 === obj1); // 因为assign方法是直接对第一个参数进行修改，所以obj1和obj4的内存地址是一样的
+
+        /**
+         * js提供的对象混合（开发中常用），如果要返回一个新对象
+         */
+        var obj5 = Object.assign({},obj1,obj2); // 运行顺序：将obj2中的属性混合到obj1中，然后再将混合后的对象和第一个对象进行混合，直接对第一个对象进行修改
+        console.log(obj5,obj5 === obj1); // 因为第一个参数是一个新的空对象所以混合后返回的算是一个新的对象
+
+        var initConfig = {
+            a: "default-a",
+            c: "default-a",
+            d: "default-a",
+            e: "default-a"
+        }
+        Object.assign(initConfig,{a: "asd"});
+        console.log(initConfig);
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象克隆</title>
+</head>
+<body>
+    <script>
+        var obj1 = {
+            x: 1,
+            y: "asd",
+            z: true,
+            h: {
+                a: 22,
+                b: "123",
+                arr: [{id: 11,name: "张山"}]
+            }
+        }
+
+        /**
+         * 对象克隆
+         */
+        function clone(obj,deep){
+            var newObj
+            if (Array.isArray(obj)) {
+                newObj = [];
+                for(var idx in obj){
+                    if (deep) {
+                        newObj.push(clone(obj[idx]));
+                    }else{
+                        newObj.push(obj[idx]);
+                    }
+                }
+                return newObj;
+            }else if (typeof obj === "object") {
+                newObj = {};
+                for(var prop in obj){
+                    if (deep) {
+                        newObj[prop] = clone(obj[prop],true)
+                    }
+                    else{
+                        newObj[prop] = obj[prop];
+                    }
+                }
+                return newObj;
+            }else{
+                return obj;
+            }
+        }
+        var obj2 = clone(obj1,true);
+        console.log(obj2,obj1.h === obj2.h);
+        
+    </script>
+</body>
+</html>

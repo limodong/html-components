@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖</title>
+</head>
+<body>
+    <input type="text">
+    <script>
+        /**
+         * 防抖：在用户动作结束后再触发
+         */
+        function debounce(callback,time){
+            var timer;
+            return function(){
+                clearTimeout(timer);
+                var args = arguments;
+                timer = setTimeout(function(){
+                    callback.apply(args[1], args); // apply第一个参数是回调函数所绑定this指向，第二个参数是传递的参数
+                },time)
+            }
+        }
+        var handle = debounce(function(args){
+            // 这里做防抖时要处理的业务逻辑
+            console.log(this.value); // 使用apply之后this的指向就不是window了而是input元素
+        },1000)
+        var inp = document.querySelector("input");
+        inp.oninput = function(){
+            handle(this.value,this); // 把input元素传给防抖函数作为this指向
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节流</title>
+</head>
+<body>
+    <script>
+        /**
+         * 节流：在指定时间内只执行一次
+         * immediately: 是否立即执行
+         */
+        function throttal(callback,time,immediately){
+            if(immediately){ // 立即执行
+                var t;
+                return function(){
+                    if (!t || Date.now() - t >= time) { // 当t没有值时，就立即触发一次，当t有值时用当前时间减去上一次的时间如果大于time时再次触发
+                        callback.apply(null,arguments)
+                        t = Date.now();
+                    }
+                }
+            }else{
+                var timer;
+                return function(){
+                    if (timer) {
+                        return;
+                    }
+                    var args = arguments;
+                    timer = setTimeout(function(){
+                        callback.apply(null,args);
+                        timer = null;
+                    },time);
+                }
+            }
+            
+        }
+
+        var handle = throttal(function(args){
+                console.log(args);
+            },1000, true)
+        
+        window.onresize = function(){
+            handle(document.documentElement.clientWidth);
+        }
+    </script>
+</body>
+</html>
