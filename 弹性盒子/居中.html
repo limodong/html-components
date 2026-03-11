@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>元素居中</title>
+    <style>
+        body{
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+        }
+
+        
+        .box{
+            display: flex;
+            width: calc(100% - 100px);
+            background-color: #cfcaca;
+            height: 80px;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+        /* 当父元素是弹性盒子，子元素设置margin-top为auto则子元素将会吃掉上边所有的外边距，
+            此时子元素在父元素的最下边，当又设置了margin-bottom为auto时则元素就会上下居中 */
+        .rect{
+            width: 40px;
+            height: 40px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .bg1{
+            background-color: rgb(235, 117, 117);
+        }
+        .bg2{
+            background-color: yellowgreen;
+        }
+        .bg3{
+            background-color: rgb(88, 88, 238);
+        }
+        .bg4{
+            background-color: greenyellow;
+        }
+        /* 当父元素是弹性盒子，子元素设置margin-left为auto则子元素将会吃掉左侧所有的外边距，此时子元素在父元素的最右边 */
+        .box1 .rect:nth-last-child(1){
+            margin-left: auto;
+        }
+
+        .box2 .rect:nth-child(3){
+            margin-left: auto;
+        }
+        /* 当父元素是弹性盒子，子元素设置margin为auto则子元素将会吃掉上下左右所有的外边距，此时子元素将处于上下左右居中 */
+        .box3 .rect:nth-child(3){
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box box1">
+            <div class="rect bg1"></div>
+            <div class="rect bg2"></div>
+            <div class="rect bg3"></div>
+        </div>
+        <div class="box box2">
+            <div class="rect bg1"></div>
+            <div class="rect bg2"></div>
+            <div class="rect bg3"></div>
+            <div class="rect bg4"></div>
+        </div>
+        <div class="box box3">
+            <div class="rect bg1"></div>
+            <div class="rect bg2"></div>
+            <div class="rect bg3"></div>
+            <div class="rect bg4"></div>
+        </div>
+    </div>
+</body>
+</html>
