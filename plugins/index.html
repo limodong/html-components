@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./helper.js"></script>
+    <script>
+        const obj = {
+            id: 1,
+            name: "张山峰",
+            isExist: true,
+            paper: [
+                { paperId: 10, paperName: "测试卷" }
+            ],
+            // report: { averageScore: 80, pass: "91%", arr: [ {a: "123", ids: [1,2,3], o: {prop: "abc"}}] }
+        };
+        var newObj = plugin.clone(obj, true);
+        console.log(obj, newObj, obj.paper === newObj.paper);
+    </script>
+</body>
+
+</html>
