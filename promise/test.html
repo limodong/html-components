@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加函数到微队列</title>
+</head>
+<body>
+    <script>
+        setTimeout(()=>console.log(1))
+        const p = document.createElement("p");
+        const callback = () => {
+            console.log(2);
+        }
+        const observer = new MutationObserver(callback); // 构造MutationObserver传入的函数会被加入到微队列中
+        observer.observe(p,{childList: true}); // 监听p元素中的节点是否有变化，如果有变化就触发new MutationObserver时传入的callback函数
+        p.innerHTML = "1";
+        console.log(3);
+    </script>
+</body>
+</html>
