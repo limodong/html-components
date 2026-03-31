@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迭代器</title>
+</head>
+<body>
+    <script>
+
+        var arr = [1,2,3,4,5,6];
+        // 模拟迭代器
+        var iterator = {
+            i: 0,
+            next: function(){
+                let value = arr[this.i];
+                this.i++
+                return {
+                    value,
+                    done: this.i >= arr.length
+                }
+            }
+        }
+
+        // 生成迭代器对象
+        var createIterator = function(arr){
+            let i = 0;
+            return {
+                next: () => ({
+                    value: arr[i++],
+                    done: i >= arr.length
+                })
+            }
+        }
+
+        // 生成一个可以无限迭代的斐波拉契数值   1 1 2 3 5 8 13 21 34 55 ...... 斐波拉契数：前两位数之和等于第三数值
+        var createFeiBoIterator = function(){
+            let prev1 = 1, prev2 = 1, value = 0 , n = 0;
+            return {
+                next: () => {
+                    if (i < 2) { // 前两位默认取1
+                        value = 1;
+                    }else{
+                        value = prev1 + prev2; 
+                        prev2 = prev1;
+                        prev1 = value;
+                    }
+                    i++;
+                    return {
+                        value,
+                        done: false
+                    }
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
