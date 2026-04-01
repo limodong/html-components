@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成器</title>
+</head>
+<body>
+    <script>
+        // function后面紧跟一个* 代表这是一个生成器（也就是一个迭代器，也就是说肯定会有next方法），它默认返回一个生成器
+        function* generator(){
+            console.log("这是一个生成器！");
+            yield 1; // 当生成器调用next()方法后，生成器内部会停在yield关键字处,且将yield后面的值返回例如{value: 1, done: false}
+            console.log("----->")
+            yield 2;
+        }
+        const iterator = generator();
+
+        const arr = [1,2,3,4,5,6,7];
+        // 使用生成器可以快速实现一个迭代器
+        function* arrIterator(arr){
+            for (const num of arr) {
+                yield num;
+            }
+        }
+        var numIterator = arrIterator(arr);
+
+        // 使用生成器构建一个斐波拉契数列
+        function* feiboGenerator(){
+            let prev1 = 1, prev2 = 1, n = 0 ;
+            while(true){
+                let value;
+                if (n < 2) {
+                    value = 1
+                }else{
+                    value = prev1 + prev2;
+                    prev2 = prev1;
+                    prev1 = value;
+                }
+                n++;
+                yield value;
+            }
+            
+        }
+        var feiboIterator = feiboGenerator();
+    </script>
+</body>
+</html>
