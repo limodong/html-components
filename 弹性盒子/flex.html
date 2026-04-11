@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex的应用</title>
+    <style>
+       .wrapper{
+        display: flex;
+        flex-direction: column;
+        width: 500px;
+        height: 500px;
+        border: 1px solid #000;
+    }
+  /*
+   *为什么没有设置header和footer盒子的宽度，它们默认的宽度是100%呢？
+   * 因为header和footer盒子的父级的排列方式是column，
+   * 且它的justify-content没有设置，则使用默认值stretch，就会横向拉伸沾满父级容器，所以是100%
+   *为什么没有设置left和right盒子的高度，它们默认的高度却会拉伸沾满容器的高度呢？
+   */
+    .header,.footer,.left,.right{
+        flex: 0 0 20%; /* 值： 0 0 20% 表示盒子不参与伸缩且占20% */
+        border: 1px solid #0f0;
+        box-sizing: border-box;
+    }
+
+    .main{
+        flex: 1 1 auto;
+    }
+    .contain{
+        flex: 1 1 auto;
+        display: flex;
+    }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+    <div class="header">header</div>
+    <div class="contain">
+        <div class="left">left</div>
+        <div class="main">main</div>
+        <div class="right">right</div>
+    </div>
+    <div class="footer">footer</div>
+</div>
+</body>
+</html>
