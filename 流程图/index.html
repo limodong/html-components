@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>流程图</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .box {
+            width: 200px;
+            height: 3000px;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: red;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-track-piece {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text">
+    <div class="box">
+    </div>
+    <script>
+        const inp = document.querySelector("input");
+        var handleDebounce = debounce(function () {
+            console.log("------->>>", arguments);
+        }, 1000)
+        inp.oninput = function () {
+            handleDebounce(this, this.value)
+        }
+
+        function debounce(func, delaye) {
+            var timer;
+            return function () {
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    func.apply(null, arguments);
+                }, delaye)
+            }
+        }
+
+        var throttle = function (func, time, immediate) {
+            var wait;
+            if (immediate) {
+                func.apply(null, arguments);
+            }
+            return function () {
+                if (!wait || Date.now() - wait >= time) {
+                    func.apply(null, arguments);
+                    wait = Date.now();
+                }
+            }
+        }
+        var handleThrottle = throttle(function () {
+            console.log()
+        }, 1000, true)
+
+        window.onresize = function () {
+
+            handleThrottle(document.documentElement.offsetWidth)
+        }
+    </script>
+</body>
+
+</html>

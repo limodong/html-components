@@ -8,6 +8,8 @@
 </head>
 
 <body>
+    <input type="text">
+    <button>查询</button>
     <script src="./helper.js"></script>
     <script>
         const obj = {
@@ -17,10 +19,78 @@
             paper: [
                 { paperId: 10, paperName: "测试卷" }
             ],
-            // report: { averageScore: 80, pass: "91%", arr: [ {a: "123", ids: [1,2,3], o: {prop: "abc"}}] }
+            report: { averageScore: 80, pass: "91%", arr: [{ a: "123", ids: [1, 2, 3], o: { prop: "abc" } }] },
+            see: function () {
+                return "浩然气";
+            }
         };
         var newObj = plugin.clone(obj, true);
-        console.log(obj, newObj, obj.paper === newObj.paper);
+        console.log(obj, newObj);
+
+        var inp = document.querySelector("input");
+        var debounceHandle = plugin.debounce(function (args) {
+            console.log(this.value, args);
+        }, 1000)
+        inp.oninput = function (e) {
+            debounceHandle(this, [1, 2, 3]);
+        }
+
+        var btn = document.querySelector("button");
+        var throttleHandle = plugin.throttle(function () {
+            console.log("点击了查询。。。。");
+        }, 3000, true);
+        btn.onclick = function () {
+            throttleHandle();
+        };
+
+        /**
+         * 固定某函数的一些参数，如果参数个数不满足就继续返回函数，如果参数个足够就执行函数
+        */
+        function fn(x, y, z) {
+            return (x + y) * z;
+        }
+        var curryHandle = plugin.curry(fn, 2); // 固定参数2
+        // console.log(curryHandle(3, 4));
+        // console.log(curryHandle(7, 8));
+        // var g = curryHandle(6);
+        // console.log(g(7));
+
+        var str = "mY NAme iS lIMOdoNG";
+        // 将字符串中单词首字母变成大写
+        function firstUpperCase(str) {
+            return str.replace(/\b(\w)(\w*)\b/g, function ($, $1, $2) {
+                // $表示匹配到的完整的字符  $1是第一个捕获组匹配到的字符    $2是第二个捕获组匹配到的字符
+                return $1.toUpperCase() + $2;
+            })
+        }
+        // 将字符串中单词字母变成小写
+        function strLowerCase(str) {
+            return str.replace(/\b\w*\b/g, function ($) {
+                return $.toLowerCase();
+            })
+        }
+        // 将字符中的空格清除
+        function clearEmpty(str) {
+            return str.replace(/\s/g, "");
+        }
+        function firstLowerCase(str) {
+            // $表示匹配到的完整的字符 $1是第一个捕获组匹配到的字符 $2是第二个捕获组匹配到的字符
+            return str.replace(/(\w)(\w*)/, function ($, $1, $2) {
+                return $1.toLowerCase() + $2;
+            })
+        }
+        function limitLength(number, str) {
+            return str.substring(0, number);
+        }
+        // str = strLowerCase(str);
+        // str = firstUpperCase(str);
+        // str = clearEmpty(str);
+        // str = firstLowerCase(str);
+
+        var handle = plugin.pipe(strLowerCase, firstUpperCase, clearEmpty, firstLowerCase, plugin.curry(limitLength, 10))
+
+        console.log(handle(str));
+
     </script>
 </body>
 

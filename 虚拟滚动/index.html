@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            position: relative;
+        }
+
+        .content-view {
+            height: 400px;
+            width: 200px;
+            overflow-y: scroll;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #456789;
+        }
+
+        .item {
+            height: 20px;
+            line-height: 20px;
+            background-color: #886633;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content-view">
+            <div class="item-container">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const arr = new Array(1000000).fill(0).map((_, idx) => idx + 1);
+        const config = {
+            contentViewHeight: 400,
+            itemHeight: 20,
+        }
+        let data = arr.slice(0, config.contentViewHeight / config.itemHeight * 2);
+        const viewDom = document.querySelector(".item-container");
+        const frag = document.createDocumentFragment();
+
+        data.forEach(i => {
+            const node = document.createElement("div");
+            node.className = "item";
+            node.innerHTML = i;
+            node.style.backgroundColor = `rgb(${Math.floor(Math.random() * 255 + 1)},${Math.floor(Math.random() * 255 + 1)},${Math.floor(Math.random() * 255 + 1)})`
+            frag.appendChild(node);
+        });
+        viewDom.appendChild(frag);
+
+        const contentViewDom = document.querySelector(".content-view");
+        let itemDoms = document.querySelectorAll(".item");
+        contentViewDom.onscroll = function () {
+            // 需要计算当前索引
+            const currentShowIdx = Math.round(contentViewDom.scrollTop / config.itemHeight);
+            // console.log(contentViewDom.scrollTop, currentShowIdx);
+            // 在计算当前索引 + 可视区可以显示的索引数
+            const endShowIndex = currentShowIdx + config.contentViewHeight / config.itemHeight;
+            // 再根据当前索引和最终的结束索引截取对应的数据
+            console.log(`从索引： ${currentShowIdx} 开始截取，到索引：${endShowIndex} 结束`, arr.slice(currentShowIdx, endShowIndex));
+            viewDom.style.transform = 'translateY(' + contentViewDom.scrollTop + 'px)';
+            data = arr.slice(currentShowIdx, endShowIndex);
+            for (const i in data) {
+                itemDoms[i].innerHTML = data[i]
+            }
+            console.log(contentViewDom.scrollTop);
+
+        }
+
+
+    </script>
+</body>
+
+</html>
